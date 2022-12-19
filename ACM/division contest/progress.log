@@ -1,0 +1,27 @@
+00:00 - start the contest.
+
+02:50 - read problem A.
+04:30 - read problem B.
+06:50 - read problem C.
+
+08:30 - try slow on A.
+26:35 - get some full idea for A.
+41:00 - hard to complete realization.
+42:00 - go on B.
+44:00 - try slow on B.
+47:37 - 20points on B. 20pts total.
+56:45 - try 2nd subtask on B.
+01:10:10 - failed.
+01:11:12 - go to C.
+01:19:35 - 20pts from C. 40pts total.
+01:25 - 30pts from C. 50pts total.
+01:45 - go again to A.
+~ - 10pts from A. 60pts total.
+03:10 - end of contest.
+
+editorial:
+A) segment tree for full, set for 80 pts.
+B) 
+C) O(N^2) for 70pts, for full binsearch needed(+2nd binsearch also).
+
+===================analyze========================================================================================================================================================================================================================================================================================================================================================================================================

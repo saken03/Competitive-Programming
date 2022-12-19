@@ -1,0 +1,46 @@
+/***
+PROB: milk
+LANG: C++14
+username: sakenseri1
+***/
+/***
+    AUTHOR:    shabylkhan
+    CREATED:   19.09.2022 10:23:37
+
+***/
+#include<bits/stdc++.h>
+
+#define sz(x) (int)(x).size()
+#define pb push_back
+#define mp make_pair
+#define f first
+#define s second
+
+typedef long long ll;
+
+using namespace std;
+
+void setIO(string name = "") {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	if (!name.empty()) {
+		freopen((name + ".in").c_str(), "r", stdin);
+		freopen((name + ".out").c_str(), "w", stdout);
+	}
+}
+
+void solve() {
+	int n;
+	cin >> n;
+	vector<int> s(n);
+	for (int i = 0; i < n; i++) cin >> s[i];
+	                    
+}
+
+int main() {
+	setIO("crypt1");
+
+	solve();
+
+	return 0;
+}   

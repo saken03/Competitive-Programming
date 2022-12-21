@@ -13,19 +13,38 @@ using namespace std;
 void solve() {
 	int n, k;
 	cin >> n >> k;
-	vector<pair<int, int>> hp(n);
-	for (int i = 0; i < n; i++) {
-		cin >> hp[i].s;
-	}
-	for (int i = 0; i < n; i++) {
-		cin >> hp[i].f;
-	}
+	vector<int> h(n), p(n);
+	for (int& i : h) cin >> i;
+	for (int& i : p) cin >> i;
 
-	sort(hp.begin(), hp.end());
+	vector<int> ord(n);
+	iota(ord.begin(), ord.end(), 0);
+	sort(ord.begin(), ord.end(), [&](int x, int y) { return p[x] < p[y]; });
 
-	for (int i = 0; i < n; i++) {
-		while 
+	int dmg = 0;
+	for (int i : ord) {
+		if (h[i] <= dmg) 
+			continue;
+
+		if (i != ord[0]) 
+			k -= p[i];
+
+		if (k > 0) {
+			dmg += k;
+			while (h[i] > dmg) {
+				k -= p[i];
+				if (k < 0) 
+					break;
+				dmg += k;	
+			}
+		}	
+
+		if (h[i] > dmg) {
+			cout << "NO\n";
+			return;
+		}
 	}
+	cout << "YES\n";
 }
 
 int main() {

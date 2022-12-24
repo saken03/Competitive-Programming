@@ -18,12 +18,13 @@ void solve() {
 	vector<int> a(n + 1);
 	for (int i = 1; i <= n; i++) cin >> a[i];
 
-	vector<vector<int>> dp(n + 1, vector<int> (2, INF));
+	vector<vector<ll>> dp(n + 2, vector<ll> (2, INF));
+	dp[1][1] = a[1];
 	for (int i = 1; i <= n; i++) {
 		for (int j = 0; j < 2; j++) {
-			for (int k = 1; k < 3; k++) {
-				int bosses = a[i] + (k > 1 ? 1 : a[i - 1]);
-				dp[i][j] = min(dp[i][j], dp[i - k][!j] + bosses * !j);  
+			for (int k = 1; k <= min(n - i, 2); k++) {
+				int bosses = a[i] + (k > 1 ? a[i + 1] : 0);
+				dp[i + k][!j] = min(dp[i + k][!j], dp[i][j] + bosses * j);
 			}
 		} 
 	}	

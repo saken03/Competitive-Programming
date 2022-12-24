@@ -29,47 +29,24 @@ void setIO(string name = "") {
 	}
 }
 
-void serve(int& h, int& m) {
-	m += 20;
-	if (m > 60) m -= 60, h++;	
-}
+int a[105];
 
-void out(int h, int m) {
-	cout << h << ' ' << m << '\n';
+void rec(int i, int j) {
+	
 }
 
 void solve() {        
-	int n;
-	cin >> n;
-	stack<pair<int, int>> in;
+	int n, k;
+	cin >> n >> k;
 	for (int i = 0; i < n; i++) {
-		int h, m, sabr;
-		cin >> h >> m >> sabr;
-		while (!in.empty() && (in.top().f < h || (in.top().f == h && in.top().s <= m))) in.pop();
-		if (!in.empty()) {
-			if (sz(in) > sabr) {
-				out(h, m);
-				continue;
-			}
-			h = in.top().f;
-			m = in.top().s;
-		}
-		serve(h, m);
-
-		if (in.empty()) {
-			out(h, m);
-			in.push(mp(h, m));
-		}
-		else {
-			out(h, m);
-			in.push(mp(h, m));
-		}
+		cin >> a[i];
 	}
+
+	rec(0, 0);
 }
 
-
 int main() {
-	setIO("saloon");
+	setIO("cbarn2");
 
 	solve();
 

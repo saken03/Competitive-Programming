@@ -29,36 +29,22 @@ void setIO(string name = "") {
 	}
 }
                                             
-void solve() {               
-	string s;
-	cin >> s;
-	
-	stack<char> st;
-	for (int i = 0; i < sz(s); i++) {
-		char x = s[i];
-		if (x == '(') st.push('(');
-		else if (x == '[') st.push('[');
-		else if (x == '{') st.push('{');
-		else {
-			if (st.empty()) {
-				cout << "NO\n";
-				return;
-			}
-			char top = st.top();
-			if (x == ')' && top == '(') st.pop();
-			else if (x == ']' && top == '[') st.pop();
-			else if (x == '}' && top == '{') st.pop();
-			else {
-				cout << "NO\n";
-				return;
-			}
-		}
+void solve() {
+	int n;
+	cin >> n;
+	vector<pair<int, int>> a(n + 1);
+	for (int i = 1; i <= n; i++) {
+		cin >> a[i].f;
+		a[i].s = i;
 	}
-	cout << (!st.empty() ? "NO" : "YES");
+	sort(a.rbegin(), a.rend() - 1);
+	for (int i = 1; i <= n; i++) {
+		cout << a[i].s << ' ';
+	}
 }
 
 int main() {
-	setIO("brackets");
+	setIO("olymp");
 
 	solve();
 

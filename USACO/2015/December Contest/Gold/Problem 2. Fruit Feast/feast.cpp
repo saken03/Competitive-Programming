@@ -32,24 +32,21 @@ void setIO(string name = "") {
 void solve() {        
 	int t, a, b;
 	cin >> t >> a >> b;
-	vector<vector<int>> dp(t + 1, vector<int> (2));
-	dp[0][0] = dp[0][1] = 1;
-	for (int j = 0; j < 2; j++) {
-		for (int i = 1; i <= t; i++) {
-			if (i - a >= 0 && dp[i - a][j]) {
-				dp[i][j] = 1;
-				if (!j) dp[i >> 1][!j] = 1;
-			}
-			if (i - b >= 0 && dp[i - b][j]) {
-				dp[i][j] = 1;
-				if (!j) dp[i >> 1][!j] = 1;
-			}
-		}
+	vector<vector<int>> dp(2, vector<int> (t + 1));
+	dp[0][0] = 1;
+	for (int i = 0; i <= t; i++) {
+		if (i - a >= 0) dp[0][i] |= dp[0][i - a];
+		if (i - b >= 0) dp[0][i] |= dp[0][i - b];
+		dp[1][i / 2] |= dp[0][i];
+	}
+	for (int i = 0; i <= t; i++) {
+		if (i - a >= 0) dp[1][i] |= dp[1][i - a];
+		if (i - b >= 0) dp[1][i] |= dp[1][i - b];
 	}
 	for (int i = t; i >= 0; i--) {
-		if (dp[i][0] || dp[i][1]) {
+		if (dp[1][i]) {
 			cout << i;
-			return;
+			return; 
 		}
 	}
 }

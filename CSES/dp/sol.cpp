@@ -13,40 +13,30 @@ using namespace std;
 const int MOD = (int)1e9 + 7;
 const int MAXN = 100500;
 
-int n, a[105], cur, dp[MAXN];
-
-void rec(int pos) {
-	if (pos == n + 1) {
-		dp[cur] = 1;
-		return;
-	} 
-	cur += a[pos];
-	rec(pos + 1);
-	cur -= a[pos];
-	rec(pos + 1);
-}
-
 void solve() {
+	int n;
 	cin >> n;
-	for (int i = 1; i <= n; i++) cin >> a[i];
-
-	vector<vector<bool>> dp(n + 1, vector<bool> (MAXN));
 	
-	dp[0][0] = 1;
+	vector<vector<char>> a(n + 1, vector<char> (n + 1));
+	vector<vector<int>> dp(n + 1, vector<int> (n + 1));
 	for (int i = 1; i <= n; i++) {
-		dp[i][a[i]] = 1;
-		for (int j = 0; j < MAXN; j++) {
-			dp[i][j] = dp[i - 1][j];
-			if (j - a[i] >= 0 && dp[i - 1][j - a[i]]) dp[i][j] = 1;
+		for (int j = 1; j <= n; j++) {
+			cin >> a[i][j];
 		}
 	}
-	
-	vector<int> v;
-	for (int i = 1; i < MAXN; i++) {
-		if (dp[n][i]) v.pb(i);
+
+	dp[1][1] = (a[1][1] == '.' ? 1 : 0);
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= n; j++) {
+			if (a[i][j] == '*') continue;
+			if (a[i - 1][j] == '.')         
+				dp[i][j] += dp[i - 1][j];
+			if (a[i][j - 1] == '.') 
+				dp[i][j] += dp[i][j - 1];
+			dp[i][j] %= MOD;	
+		}
 	}
-	cout << sz(v) << '\n';
-	for (int i : v) cout << i << ' ';
+	cout << dp[n][n];
 }
 
 int main() {

@@ -41,28 +41,34 @@ void out(int h, int m) {
 void solve() {        
 	int n;
 	cin >> n;
-	stack<pair<int, int>> in;
+	vector<pair<int, int>> in;
 	for (int i = 0; i < n; i++) {
 		int h, m, sabr;
 		cin >> h >> m >> sabr;
-		while (!in.empty() && (in.top().f < h || (in.top().f == h && in.top().s <= m))) in.pop();
-		if (!in.empty()) {
+		
+		vector<pair<int, int>> nin;
+		for (auto it : in) {
+			if (!(it.f < h || (it.f == h && it.s <= m))) nin.pb(mp(it.f, it.s));
+		}
+		in = nin;
+
+		if (sz(in)) {
 			if (sz(in) > sabr) {
 				out(h, m);
 				continue;
 			}
-			h = in.top().f;
-			m = in.top().s;
+			h = in.front().f;
+			m = in.front().s;
 		}
 		serve(h, m);
 
 		if (in.empty()) {
 			out(h, m);
-			in.push(mp(h, m));
+			in.pb(mp(h, m));
 		}
 		else {
 			out(h, m);
-			in.push(mp(h, m));
+			in.pb(mp(h, m));
 		}
 	}
 }

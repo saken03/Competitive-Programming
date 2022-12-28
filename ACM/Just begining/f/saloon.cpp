@@ -31,7 +31,7 @@ void setIO(string name = "") {
 
 void serve(int& h, int& m) {
 	m += 20;
-	if (m > 60) m -= 60, h++;	
+	if (m >= 60) m -= 60, h++;	
 }
 
 void out(int h, int m) {
@@ -52,24 +52,19 @@ void solve() {
 		}
 		in = nin;
 
+		if (sz(in) > sabr) {
+			out(h, m);
+			continue;
+		}
+
+		sort(in.begin(), in.end());
 		if (sz(in)) {
-			if (sz(in) > sabr) {
-				out(h, m);
-				continue;
-			}
-			h = in.front().f;
-			m = in.front().s;
+			h = in[sz(in) - 1].f;
+			m = in[sz(in) - 1].s;
 		}
 		serve(h, m);
-
-		if (in.empty()) {
-			out(h, m);
-			in.pb(mp(h, m));
-		}
-		else {
-			out(h, m);
-			in.pb(mp(h, m));
-		}
+		out(h, m);
+		in.pb(mp(h, m));
 	}
 }
 

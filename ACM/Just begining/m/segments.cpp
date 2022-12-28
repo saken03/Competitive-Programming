@@ -10,7 +10,7 @@ typedef long long ll;
 
 using namespace std;
 
-const int MAXN = 1e5 + 123;
+const int MAXN = 5e5 + 123;
 
 void setIO(string name = "") {
 	ios::sync_with_stdio(0);
@@ -24,7 +24,7 @@ void setIO(string name = "") {
 void solve() {
 	int n, m;
 	cin >> n >> m;
-	vector<int> l(n), r(n), x(n);
+	vector<int> l(n), r(n), x(m);
 	set<int> s;
 	for (int i = 0; i < n; i++) {
 		cin >> l[i] >> r[i];
@@ -52,10 +52,9 @@ void solve() {
 		pref[l[i]]++;
 		pref[r[i] + 1]--;
 	}
-
 	for (int i = 0; i < m; i++) x[i] = comp[x[i]];
 
-	for (int i = 1; i < numb; i++) pref[i] += pref[i - 1];
+	for (int i = 1; i < MAXN; i++) pref[i] += pref[i - 1];
 
 	for (int i = 0; i < m; i++) {
 		cout << pref[x[i]] << ' ';
@@ -67,7 +66,7 @@ int main() {
 
 	int tt = 1;
 //	cin >> tt;
-	while (tt--) 
+	while (tt--) { 
 		solve();
 	}
 

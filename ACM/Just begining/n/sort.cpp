@@ -10,6 +10,8 @@ typedef long long ll;
 
 using namespace std;
 
+const int MAXN = 5e5 + 123;
+
 void setIO(string name = "") {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
@@ -19,39 +21,23 @@ void setIO(string name = "") {
 	}
 }
 
-const int INF = (int)1e12;
-
-int n, k, ans;
-vector<int> a;
-
-int calc(vector<int> a) {
-	int mn = a[1] - a[0];
-	for (int i = 2; i < n; i++) mn = min(mn, a[i] - a[i - 1]);
-	return mn;
-}
-
-void rec(int pos, vector<int> v = {}) {
-	if (pos > n) return;
-	if (sz(v) == k) {
-		ans = max(ans, calc(v));
-		return;
-	}
-	vector<int> t = v;
-	t.pb(a[pos]);
-	rec(pos + 1, t);
-	rec(pos + 1, v);
-}
-
 void solve() {
-	cin >> n >> k;
-	a.resize(n);
+	int n;
+	cin >> n;
+	vector<int> a(n);
 	for (int i = 0; i < n; i++) cin >> a[i];
-	rec(0);
-	cout << ans;
+	sort(a.begin(), a.end());
+	for (int i : a) cout << i << ' ';
 }
 
 int main() {
-	setIO("cows");
-	solve();
+	setIO("sort");
+
+	int tt = 1;
+//	cin >> tt;
+	while (tt--) { 
+		solve();
+	}
+
 	return 0;
 } 

@@ -7,6 +7,7 @@ using namespace std;
 void solve() {
 	int n;
 	cin >> n;
+
 	vector<int> a(n);
 	map<int, int> m, ans;
 	int mx = 0;

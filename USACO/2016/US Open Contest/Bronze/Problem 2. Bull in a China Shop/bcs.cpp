@@ -1,3 +1,13 @@
+/***
+PROB: 
+LANG: C++14
+username: sakenseri1
+***/
+/***
+    AUTHOR:    shabylkhan
+    CREATED:   19.09.2022 10:23:37
+
+***/
 #include<bits/stdc++.h>
 
 #define sz(x) (int)(x).size()
@@ -5,14 +15,11 @@
 #define mp make_pair
 #define f first
 #define s second
-                
+
 typedef long long ll;
 
 using namespace std;
 
-const int MAXN = 1e5 + 123;
-const int INF = (int)1e12;
-                                       
 void setIO(string name = "") {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
@@ -22,23 +29,14 @@ void setIO(string name = "") {
 	}
 }
 
-void solve() {
-	int n, k;
-	cin >> n;
-	map<int, int> m;
-	for(int i = 0; i < n; i++) {int x; cin >> x; m[x]++; }
-	cin >> k;
-	while (k--) { int x; cin >> x; cout << m[x] << '\n'; }
+void solve() {        
+	
 }
 
 int main() {
-	setIO("mutants");
+	setIO("bcs");
 
-	int tt = 1;
-//	cin >> tt;
-	while (tt--) { 
-		solve();
-	}
+	solve();
 
 	return 0;
-} 
+}   

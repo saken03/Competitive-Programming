@@ -29,8 +29,9 @@ void solve() {
 	for (int i = 1; i <= n; i++) cin >> a[i];
 
 	vector<bool> dp(s + 1);
+	dp[0] = 1;	
 	for (int i = 1; i <= n; i++) {
-		for (int j = 0; j <= s; j++) {
+		for (int j = s; j >= 0; j--) {
 			if (j - a[i] >= 0 && dp[j - a[i]]) dp[j] = 1;
 		}
 	}

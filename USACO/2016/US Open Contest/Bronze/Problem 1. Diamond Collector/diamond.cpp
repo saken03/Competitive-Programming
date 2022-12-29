@@ -1,3 +1,13 @@
+/***
+PROB: 
+LANG: C++14
+username: sakenseri1
+***/
+/***
+    AUTHOR:    shabylkhan
+    CREATED:   19.09.2022 10:23:37
+
+***/
 #include<bits/stdc++.h>
 
 #define sz(x) (int)(x).size()
@@ -5,7 +15,7 @@
 #define mp make_pair
 #define f first
 #define s second
-                
+
 typedef long long ll;
 
 using namespace std;
@@ -19,39 +29,30 @@ void setIO(string name = "") {
 	}
 }
 
-const int INF = (int)1e9;
-
-int n, k, a[10005];
-
-bool check(int x) {
-	int last = a[0], c = 1;
-	for (int i = 1; i < n; i++) {
-		if (a[i] - last >= x) {
-			c++;
-			last = a[i];
-		}
-		if (c == k) return 1;
-	}
-	return 0;
-}
-
-void solve() {
+void solve() {        
+	int n, k;
 	cin >> n >> k;
+	vector<int> a(n);
 	for (int i = 0; i < n; i++) cin >> a[i];
-	int l = 1, r = INF, ans = 1;
-	while (l <= r) {
-		int mid = (l + r) >> 1;
-		if (check(mid)) {
-			ans = mid;
-			l = mid + 1;
+	sort(a.begin(), a.end());
+	int ans = 0;
+	for (int i = 0; i < n; i++) {
+		int cnt = 0;
+		for (int j = i; j < n; j++) {
+			if (abs(a[i] - a[j]) > k) {
+				break;
+			}
+			cnt++;
 		}
-		else r = mid - 1;
+		ans = max(ans, cnt);
 	}
 	cout << ans;
 }
 
 int main() {
-	setIO("cows");
+	setIO("diamond");
+
 	solve();
+
 	return 0;
-} 
+}   

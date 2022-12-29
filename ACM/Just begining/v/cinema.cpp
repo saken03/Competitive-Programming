@@ -23,16 +23,30 @@ void setIO(string name = "") {
 }
 
 void solve() {
-	int n, k;
-	cin >> n;
-	map<int, int> m;
-	for(int i = 0; i < n; i++) {int x; cin >> x; m[x]++; }
-	cin >> k;
-	while (k--) { int x; cin >> x; cout << m[x] << '\n'; }
+	int n, m, k;
+	cin >> n >> m >> k;
+	map<int, int> a, b, c;
+	for (int i = 0; i < n; i++) { int x; cin >> x; a[x]++; }
+	for (int i = 0; i < m; i++) { int x; cin >> x; b[x]++; }
+	for (int i = 0; i < k; i++) { int x; cin >> x; c[x]++; }
+	vector<int> v;
+	for (auto q : a) {
+		for (auto w : b) {
+			for (auto e : c) {
+				if (q.f == w.f && w.f == e.f) {
+					for (int i = 0; i < min(q.s, min(w.s, e.s)); i++) {
+						v.pb(w.f);
+					}
+				}
+			}
+		}
+	}
+	cout << sz(v) << '\n';
+	for (auto i : v) cout << i << ' ';
 }
-
+                                           
 int main() {
-	setIO("mutants");
+	setIO("cinema");
 
 	int tt = 1;
 //	cin >> tt;

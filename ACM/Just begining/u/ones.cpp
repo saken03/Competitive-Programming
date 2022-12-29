@@ -23,16 +23,19 @@ void setIO(string name = "") {
 }
 
 void solve() {
-	int n, k;
+	int n;
 	cin >> n;
-	map<int, int> m;
-	for(int i = 0; i < n; i++) {int x; cin >> x; m[x]++; }
-	cin >> k;
-	while (k--) { int x; cin >> x; cout << m[x] << '\n'; }
+	rec(0);
+
+/*
+	dp[1][0] = 1;
+	dp[1][1] = 1;
+		
+*/
 }
 
 int main() {
-	setIO("mutants");
+	setIO("ones");
 
 	int tt = 1;
 //	cin >> tt;

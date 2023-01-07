@@ -3,11 +3,6 @@ PROB:
 LANG: C++14
 username: sakenseri1
 ***/
-/***
-    AUTHOR:    shabylkhan
-    CREATED:   19.09.2022 10:23:37
-
-***/
 #include<bits/stdc++.h>
 
 #define sz(x) (int)(x).size()

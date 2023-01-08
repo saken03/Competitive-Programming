@@ -9,29 +9,25 @@ typedef long long ll;
 
 const ll MOD = (ll) 1e9 + 7;
 
-void solve() {
-	int n;
-	cin >> n;
+void solve() {	
+	int n, p, k;
+	cin >> n >> p >> k;
+	
+	vector<int> a(n);
+	for (int& i : a) cin >> i;
+	sort(a.begin(), a.end());
 
-	vector<vector<int>> can(n, vector<int> (n));
+	vector<vector<int>> s(n, vector<int> (p));
 	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			cin >> can[i][j];
+		for (int j = 0; j < p; j++) {
+			cin >> s[i][j];
 		}
 	}
 
-	vector<int> dp(1 << n);
-	dp[0] = 1;
-	for (int s = 1; s < (1 << n); s++) {
-		int a = __builtin_popcount(s);
-		for (int b = 0; b < n; b++) {
-			if ((s & (1 << b)) == 1 && can[a][b]) {
-				dp[s] += dp[s ^ (1 << b)];
-				dp[s] %= MOD;
-			}
-		}
+	vector<vector<ll>> dp(n, vector<ll> (1 << p));
+	for (int m = 0; m < (1 << p); m++) {
+		
 	}
-	cout << dp[(1 << n) - 1] << '\n';
 }
 
 int main() {

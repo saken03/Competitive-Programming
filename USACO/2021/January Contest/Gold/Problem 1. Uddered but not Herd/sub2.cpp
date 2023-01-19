@@ -42,10 +42,10 @@ void solve() {
 	for (int msk = 1; msk < (1 << n); msk++) {
 		dp[msk] = sz(heard);
 		for (int j = 0; j < n; j++) {
-			if ((msk & (1 << j)) != 0) {
+			if (msk & (1 << j)) {
 				int sum = dp[msk ^ (1 << j)];
 				for (int k = 0; k < n; k++) 
-					if ((msk & (1 << k)) != 0)
+					if (msk & (1 << k))
 						sum += adjacent[j][k];
 				dp[msk] = min(dp[msk], sum);
 			}

@@ -39,7 +39,7 @@ void solve() {
 			if (dp[i + 1][j] == a[i]) 
 				dp[i][j] = max(dp[i][j], a[i] + 1);	
 			if (dp[i][j - 1] == a[j])
-				dp[i][j] = max(dp[i][j]. a[j] + 1);
+				dp[i][j] = max(dp[i][j], a[j] + 1);
 			for (int k = i + 1; k < j; k++)
 				if (dp[i][k] == dp[k + 1][j]) 
 					dp[i][j] = max(dp[i][j], dp[i][k] + 1);

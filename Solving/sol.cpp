@@ -13,7 +13,12 @@ typedef long long ll;
 const int INF = (int)1e10;
 
 void solve() {
-	
+	int n;
+	cin >> n;
+	if (__builtin_popcount(n) == 1) {
+		cout << "YES\n";
+	}
+	else cout << "NO\n";
 }
 
 int main() {

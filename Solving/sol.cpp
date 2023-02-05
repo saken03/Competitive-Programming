@@ -11,14 +11,27 @@ using namespace std;
 typedef long long ll;
 
 const int INF = (int)1e10;
+const int MOD = (int)1e9 + 7;
 
 void solve() {
-	int n;
-	cin >> n;
-	if (__builtin_popcount(n) == 1) {
-		cout << "YES\n";
+	string s;
+	cin >> s;
+	
+	int n = sz(s); // size of the string
+	vector<vector<int>> dp(n, vector<int>(n)); // dp[l][r]
+
+	for (int i = 0; i < n - 1; i++) 
+		if (s[i] == s[i + 1]) 
+			dp[i][i + 1] = 1;
+
+	for (int i = n - 1; i >= 0; i--) {
+		for (int j = i + 1; j < n; j++) {
+			for (int k = i + 1; k < j; k++) {
+				dp[i][j] += dp[i][k] + dp[k + 1][j];
+			}
+		}
 	}
-	else cout << "NO\n";
+	cout << dp[0][n - 1] << '\n';
 }
 
 int main() {

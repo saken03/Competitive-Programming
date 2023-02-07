@@ -10,60 +10,55 @@ typedef long long ll;
 
 using namespace std;
 
-const int MAXN = 1e5 + 10;
+const int MAXN = 2e5 + 12;
 
 int n, m;
-vector<int> g[MAXN], vis(MAXN), col(MAXN, -1);
+vector<int> vis(MAXN), g[MAXN];
+vector<bool> chosen(MAXN);
+
+void clear() {
+	for (int i = 0; i < MAXN; i++) 
+		g[i].clear();
+	fill(vis.begin(), vis.end(), false);
+	fill(chosen.begin(), chosen.end(), false);	
+}
 
 void dfs(int v) {
 	vis[v] = 1;
 
-	for (int to : g[v]) {
-		if (!vis[to]) {
-			col[to] = col[v] ^ 1;
+	for (const int to : g[v]) 
+		if (!vis[to])
 			dfs(to);
-		}
-	}
-}
-
-void check() {
-	for (int i = 0; i < n; i++) {
-		for (int to : g[i]) {
-			if (col[i] == col[to]) {
-				cout << "IMPOSSIBLE";
-				exit(0);
-			}
-		}
-	}
 }
 
 void solve() {
 	cin >> n >> m;
+
+	clear();
+
 	for (int i = 0; i < m; i++) {
 		int a, b;
 		cin >> a >> b;
-		a--; b--;
+		a--;
+		b--;
 		g[a].pb(b);
 		g[b].pb(a);
 	}
 
 	for (int i = 0; i < n; i++) {
-		if (!vis[i]) {
-			col[i] = 0;
+		if (!vis[i]) 
 			dfs(i);
-		}
-	}
-
-	check();
-
-	for (int i = 0; i < n; i++) {
-		cout << (col[i] == 0 ? 1 : 2) << ' ';
 	}
 }
 
 int main() {                                                                         
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-	solve();
+	
+	int tt = 1;
+	cin >> tt;
+	while (tt--) 
+		solve();
+
 	return 0;
 }

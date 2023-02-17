@@ -24,79 +24,68 @@ void setIO(string name = "") {
 	}
 }
 
-const int MAXA = (int)1e10;
-const int N = 500;
+#define MAX 501
 
-int n, m;
-int g[N][N];
-bool vis[N][N];
-vector<pair<int, int>> waypoints;
+const int dx[] = {0, 0, -1, 1},
+					dy[] = {-1, 1, 0, 0};
 
-int dx[] = {0, 0, -1, 1};
-int dy[] = {-1, 1, 0, 0};
+int n, m, mat[MAX][MAX], wp[MAX][MAX], mark[MAX][MAX], wx, wy;
 
-void clear() {
-	for (int i = 0; i < N; i++) 
-		for (int j = 0; j < N; j++)
-			vis[i][j] = false;
-}
+void floodfill(int d) {
+	queue<pair<int, int>> q;
+	
+	q.push(mp(wy, wx));
+	mark[wy][wx] = 1;
 
-void floodfill(int x, int y, int D) {	
-	clear();
-	queue<pair<int, int>> bfs;
-	bfs.push({x, y});
-	vis[x][y] = 1;
+	while (!q.empty()) {
+		pair<int, int> p = q.front();
+		q.pop();
 
-	while (!bfs.empty()) {
-		const auto cur = bfs.front();
-		vis[cur.f][cur.s] = 1;
-
-		for (int d = 0; d < 4; d++) {
-			int nx = cur.f + dx[d];
-			int ny = cur.s + dy[d];
-			if (nx < 0 || nx >= n || ny < 0 || ny >= m || vis[nx][ny] || 
-				abs(g[cur.f][cur.s] - g[nx][ny]) > D) continue;
-			// bfs.push({nx, ny});
+		for (int i = 0; i < 4; i++) {
+			int ny = p.first + dy[i], nx = p.second + dx[i];
+			if (ny >= 0 && ny < m && nx >= 0 && nx < n) 
+				if (!mark[ny][nx] && abs(mat[p.first][p.second] - mat[ny][nx]) <= d) {
+					q.push(mp(ny, nx));
+					mark[ny][nx] = 1;
+				}
 		}
 	}
+	
 }
 
-bool check(int x) {
-	floodfill(waypoints[0].f, waypoints[0].s, x);
+bool reachable(int d) {
+	for (int i = 0; i < m; i++)
+		for (int j = 0; j < n; j++)
+			mark[i][j] = 0;
 
-	for (const auto wp : waypoints) 
-		if (!vis[wp.f][wp.s])
-			return false;
+	floodfill(d);
+
+	for (int i = 0; i < m; i++) 
+		for (int j = 0; j < n; j++)
+			if (wp[i][j] && !mark[i][j]) 
+				return false;
 	return true;
 }
 
 void solve() {        
-	cin >> n >> m;
-	for (int i = 0; i < n; i++) 
-		for (int j = 0; j < m; j++)
-			cin >> g[i][j];
-
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < m; j++) {
-			bool wp;
-			cin >> wp;
-			if (wp) waypoints.pb({i, j});
+	cin >> m >> n;
+	for (int i = 0; i < m; i++) 
+		for (int j = 0; j < n; j++) 
+			cin >> mat[i][j];
+	for (int i = 0; i < m; i++)
+		for (int j = 0; j < n; j++) {
+			cin >> wp[i][j];
+			if (wp[i][j]) wy = i, wx = j;
 		}
 
-	cout << check(50);
-
-	// int l = 0, r = MAXA, D = MAXA;
-	// while (l <= r) {
-	// 	int mid = (l + r) >> 1;
-	// 	if (check(mid)) {
-	// 		r = mid - 1;
-	// 		D = mid;
-	// 	}
-	// 	else 
-	// 		l = mid + 1;
-	// }
-
-	// cout << D << '\n';
+	int dmin = 0, dmax = 1000000000;
+	while (dmin < dmax) {
+		int d = (dmin + dmax) >> 1;
+		if (reachable(d)) 
+			dmax = d;
+		else dmin = d + 1;	
+	}
+	cout << dmin << '\n';
 }
 
 int main() {

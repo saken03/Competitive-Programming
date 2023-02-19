@@ -28,21 +28,17 @@ const int MAXN = 1e5 + 10;
 
 int n, m;
 string type;
-vector<int> g[MAXN];
-bool found;
+bool visited[MAXN];
+vector<int> g[MAXN], farm(MAXN);
+int compNumber;
 
-void dfs(int v, int p, int f, char mo, bool met) {
-	met = (type[v] == mo);
+void dfs(int v) {
+	visited[v] = 1;
+	farm[v] = compNumber;
 
-	if (v == f)	{
-		found = met;
-		return;
-	}
-
-	for (const int to : g[v]) {
-		if (to == p) continue;
-		return dfs(to, v, f, mo, met);
-	}
+	for (const int to : g[v]) 
+		if (!visited[to] && type[v] == type[to]) 
+			dfs(to);
 }
 
 void solve() {
@@ -57,17 +53,24 @@ void solve() {
 		g[b].pb(a);
 	}
 
+	for (int i = 0; i < n; i++) 
+		if (!visited[i]) {
+			dfs(i);
+			compNumber++;
+		}
+
 	while (m--) {
 		int a, b;
 		char c;
 		cin >> a >> b >> c;
 		a--;
 		b--;
-		dfs(a, -1, b, c, 0);
-		cout << found;
+		if (farm[a] != farm[b] || type[a] == c)
+			cout << 1;
+		else cout << 0;	
 	}
 }
-
+                     
 int main() {
 	setIO("milkvisits");
 

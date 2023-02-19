@@ -29,8 +29,9 @@ void solve() {
 
 int main() {
 	setIO("");
-
-	solve();
-
+	int tt = 1;
+	// cin >> tt;
+	while (tt--) 
+		solve();
 	return 0;
 }   

@@ -24,27 +24,36 @@ void setIO(string name = "") {
 	}
 }
 
-const int MAXN = 2e5 + 10;
+const int INF = (int)1e10;
+const int MAXN = 1e5;
 
-vector<int> g[MAXN], deepLevel(MAXN);
-int farNode, maxLevel;
+int n, m;
+vector<int> g[MAXN], dist(MAXN),
+	parent(MAXN);
 
-void dfs(int v, int p = -1) {
-	for (const int to : g[v]) 
-		if (to != p) {
-			deepLevel[to] = deepLevel[v] + 1;
-			if (deepLevel[to] >= maxLevel) {
-				maxLevel = deepLevel[to];
-				farNode = to;
+void bfs(int s) {
+  fill(dist.begin(), dist.end(), INF);
+	queue<int> q;
+	q.push(s);
+	dist[s] = 0;
+
+	while (!q.empty()) {
+		int v = q.front();
+		q.pop();
+		for (const int to : g[v]) {
+			if (dist[to] == INF) {
+				q.push(to);
+				parent[to] = v;
+		  	dist[to] = dist[v] + 1;
 			}
-			dfs(to, v);
 		}
+	}
 }
 
 void solve() {        
-	int n;
-	cin >> n;
-	for (int i = 0; i < n - 1; i++) {
+	cin >> n >> m;
+
+	for (int i = 0; i < m; i++) {
 		int a, b;
 		cin >> a >> b;
 		a--;
@@ -53,10 +62,19 @@ void solve() {
 		g[b].pb(a);
 	}
 
-	dfs(0);
-	fill(deepLevel.begin(), deepLevel.end(), 0);
-	dfs(farNode);
-	cout << deepLevel[farNode] << '\n';
+	bfs(0);
+
+	if (dist[n - 1] == INF)
+		cout << "IMPOSSIBLE\n";
+	else {
+		cout << dist[n - 1] + 1 << '\n';
+		vector<int> v = {n - 1}; // one element n - 1
+		while (v.back() != 0) 
+			v.pb(parent[v.back()]);
+		reverse(begin(v), end(v));
+		for (const int i : v) cout << i + 1 << ' ';
+	}
+
 }
 
 int main() {

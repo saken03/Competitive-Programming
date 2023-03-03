@@ -26,34 +26,31 @@ void setIO(string name = "") {
 
 const int INF = (int)1e10;
 const int MAXN = 1e5;
+const int N = 1005;
 
-int n, m;
-vector<int> g[MAXN], dist(MAXN),
-	parent(MAXN);
+int n, q, v[MAXN];
+ll sum[MAXN];
+vector<int> g[MAXN], g2[MAXN];
 
-void bfs(int s) {
-  fill(dist.begin(), dist.end(), INF);
-	queue<int> q;
-	q.push(s);
-	dist[s] = 0;
-
-	while (!q.empty()) {
-		int v = q.front();
-		q.pop();
-		for (const int to : g[v]) {
-			if (dist[to] == INF) {
-				q.push(to);
-				parent[to] = v;
-		  	dist[to] = dist[v] + 1;
-			}
+void dfs(int v, int p) {
+  sum[v] += v[	v];
+	for (const int to : v) 
+		if (to != p) {
+			dfs(to, p);
+			dfs[v] += dfs[to];
 		}
-	}
 }
 
+void upd
+     
 void solve() {        
-	cin >> n >> m;
+	cin >> n >> q;
+	                           	
+	for (int i = 0; i < n; i++) {
+		cin >> v[i];
+	}
 
-	for (int i = 0; i < m; i++) {
+	for (int i = 0; i < n - 1; i++) {
 		int a, b;
 		cin >> a >> b;
 		a--;
@@ -62,25 +59,26 @@ void solve() {
 		g[b].pb(a);
 	}
 
-	bfs(0);
+	dfs(0, -1);
 
-	if (dist[n - 1] == INF)
-		cout << "IMPOSSIBLE\n";
-	else {
-		cout << dist[n - 1] + 1 << '\n';
-		vector<int> v = {n - 1}; // one element n - 1
-		while (v.back() != 0) 
-			v.pb(parent[v.back()]);
-		reverse(begin(v), end(v));
-		for (const int i : v) cout << i + 1 << ' ';
+	for (int i = 0; i < q; i++) {
+		int tp, s;
+		cin >> tp >> s;
+		s--;
+
+		if (tp == 1) {
+			int x;
+			cin >> x;
+			update(s, x);
+		}
+		else {    
+			cout << sum[s] << '\n';
+		}
 	}
-
 }
 
 int main() {
 	setIO("");
-
 	solve();
-
 	return 0;
 }   
